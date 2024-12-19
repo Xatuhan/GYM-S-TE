@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İletişim - Sağlık ve Fitness</title>
+    <title>İletişim</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            line-height: 1.6;
+            color: #333;
             background-color: #f9f9f9;
         }
         header {
@@ -21,15 +22,14 @@
         }
         header h1 {
             margin: 0;
+            font-size: 2.5rem;
         }
         nav ul {
             list-style: none;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            margin: 0;
         }
         nav ul li {
+            display: inline;
             margin: 0 15px;
         }
         nav ul li a {
@@ -37,12 +37,20 @@
             text-decoration: none;
         }
         main {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 2rem auto;
-            padding: 1rem;
+            padding: 0 1rem;
+        }
+        section {
             background: #fff;
+            margin: 1rem 0;
+            padding: 1.5rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        section h2 {
+            margin-top: 0;
+            color: #222;
         }
         footer {
             background: #222;
@@ -51,18 +59,7 @@
             padding: 1rem 0;
             margin-top: 2rem;
         }
-        form label {
-            display: block;
-            margin: 0.5rem 0 0.2rem;
-        }
-        form input, form textarea {
-            width: 100%;
-            padding: 0.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        form button {
+        button {
             background: #e63946;
             color: #fff;
             border: none;
@@ -70,89 +67,87 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        form button:hover {
+        button:hover {
             background: #d62839;
         }
-        #commentList div {
+        .comment-section {
+            margin-top: 2rem;
+        }
+        .comment {
+            background: #f1f1f1;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+        input, textarea {
+            width: 100%;
             margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Sağlık ve Fitness</h1>
+        <h1>İletişim</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Ana Sayfa</a></li>
-                <li><a href="egzersiz.html">Egzersizler</a></li>
+                <li><a href="egzersizler.html">Egzersizler</a></li>
                 <li><a href="diyet.html">Diyet Planları</a></li>
-                <li><a href="recipes.html">Sağlıklı Tarifler</a></li>
-                <li><a href="contact2.html">İletişim</a></li>
+                <li><a href="tarifler.html">Sağlıklı Tarifler</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
         <section>
-            <h2>İletişim</h2>
-            <p>Bize ulaşmak için aşağıdaki bilgileri kullanabilirsiniz:</p>
-            <ul>
-                <li><strong>Adres:</strong> İstanbul, Türkiye</li>
-                <li><strong>Telefon:</strong> +90 212 345 67 89</li>
-                <li><strong>E-posta:</strong> info@saglikvefitness.com</li>
-            </ul>
-            <img src="iletisim.jpeg" alt="İletişim Görseli">
-        </section>
-        <section>
-            <h2>Yorumlarınızı Bize Bildirin</h2>
+            <h2>Bizimle İletişime Geçin</h2>
             <form id="commentForm">
                 <label for="email">E-posta:</label>
                 <input type="email" id="email" name="email" required>
-                
+
                 <label for="comment">Yorumunuz:</label>
                 <textarea id="comment" name="comment" rows="4" required></textarea>
-                
+
                 <button type="submit">Gönder</button>
             </form>
-            
-            <h3>Gelen Yorumlar:</h3>
-            <div id="commentList">
-                <p>Henüz bir yorum bulunmuyor.</p>
+
+            <div id="comments" class="comment-section">
+                <h3>Yorumlar</h3>
+                <!-- Yorumlar buraya eklenecek -->
             </div>
         </section>
     </main>
+
     <footer>
         <p>&copy; 2024 Sağlık ve Fitness. Tüm hakları saklıdır.</p>
     </footer>
+
     <script>
-        
-        const form = document.getElementById("commentForm");
-        const commentList = document.getElementById("commentList");
+        document.getElementById('commentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        
-        form.addEventListener("submit", function (event) {
-            event.preventDefault(); 
+            const email = document.getElementById('email').value;
+            const comment = document.getElementById('comment').value;
 
-            
-            const email = document.getElementById("email").value;
-            const comment = document.getElementById("comment").value;
+            if (email && comment) {
+                const commentsDiv = document.getElementById('comments');
 
-            /
-            const commentElement = document.createElement("div");
-            commentElement.innerHTML = `
-                <p><strong>${email}</strong> dedi ki:</p>
-                <p>${comment}</p>
-                <hr>
-            `;
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
 
-            commentList.appendChild(commentElement);
+                commentDiv.innerHTML = `<p><strong>${email}</strong></p><p>${comment}</p>`;
 
-            
-            if (commentList.querySelector("p").textContent === "Henüz bir yorum bulunmuyor.") {
-                commentList.innerHTML = "";
+                commentsDiv.appendChild(commentDiv);
+
+                document.getElementById('email').value = '';
+                document.getElementById('comment').value = '';
             }
-
-            form.reset();
         });
     </script>
 </body>
 </html>
+
